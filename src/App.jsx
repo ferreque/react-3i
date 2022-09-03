@@ -1,7 +1,10 @@
+import "bootstrap/dist/css/bootstrap.min.css";
+import Home from "./views/Home";
+
 function App() {
   return (
-    <div className="App">
-      <h2>create-react-app+jsx+eslint template</h2>
+    <div>
+      <Home />
     </div>
   );
 }
