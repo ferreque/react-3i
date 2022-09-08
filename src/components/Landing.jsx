@@ -1,9 +1,12 @@
-const Landing = ({ sumarUno, restarUno }) => {
+import Hero from "./Hero";
+import ProductListContainer from "./ProductListContainer";
+
+const Landing = () => {
   return (
-    <div>
-      <button onClick={() => sumarUno()}>Sumar</button>
-      <button onClick={() => restarUno()}>Restar</button>
-    </div>
+    <>
+      <Hero />
+      <ProductListContainer />
+    </>
   );
 };
 
