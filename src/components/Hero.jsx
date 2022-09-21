@@ -1,4 +1,5 @@
 import { Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -11,11 +12,13 @@ const Hero = () => {
           Estamos listos para desarrollar tu pagina web!
         </Card.Text>
         <div className="d-flex justify-content-center align-items-center ">
-          <Button variant="light">
-            <span className="font-weight-bolder" size="lg">
-              CONOZCA MAS
-            </span>
-          </Button>
+          <Link to={"/about"}>
+            <Button variant="light">
+              <span className="font-weight-bolder" size="lg">
+                CONOZCA MAS
+              </span>
+            </Button>
+          </Link>
         </div>
       </Card.Body>
     </Card>

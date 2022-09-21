@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
+import Loader from "./Loader";
 
 const ProductListContainer = () => {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      fetch("https://fakestoreapi.com/products?limit=3")
-        .then((res) => res.json())
-        .then((json) => setData(json));
-    }, 5000);
-  });
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => res.json())
+      .then((json) => setData(json))
+      .finally(() => setIsLoading(false));
+  }, []);
 
-  return <>{data === [] ? <h2>CARGANDO...</h2> : <ProductList data={data} />}</>; //NO ANDA EL CARGANDO
+  return <>{isLoading ? <Loader /> : <ProductList data={data} />}</>;
 };
 
 export default ProductListContainer;
