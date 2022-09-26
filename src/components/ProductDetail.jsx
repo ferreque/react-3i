@@ -1,6 +1,9 @@
 import { Button, Card, Container } from "react-bootstrap";
+import { useState } from "react";
+import ProductCounter from "./ProductCounter";
 
 const ProductDetail = ({ product }) => {
+  const [contador, setContador] = useState(0);
   return (
     <Card className="m-2 border-2 h-100">
       <Container className="d-flex justify-content-center align-items-center">
@@ -13,6 +16,7 @@ const ProductDetail = ({ product }) => {
       </Card.Body>
       <Card.Footer className="border-0">
         <Container className="d-flex justify-content-center align-items-center">
+          <ProductCounter contador={contador} setContador={setContador} />
           <Button variant="success" size="sm">
             Comprar
           </Button>
