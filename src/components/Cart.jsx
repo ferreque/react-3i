@@ -1,12 +1,11 @@
+import { Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
-const Cart = () => {
+const Cart = ({ cart, clear, del }) => {
   return (
     <>
       {[false].map((expand) => (
@@ -20,34 +19,37 @@ const Cart = () => {
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  Offcanvas
+                  Carrito
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="#action1">Home</Nav.Link>
-                  <Nav.Link href="#action2">Link</Nav.Link>
-                  <NavDropdown
-                    title="Dropdown"
-                    id={`offcanvasNavbarDropdown-expand-${expand}`}
+                  {cart.map((c, i) => (
+                    <li key={i}>
+                      <Row>
+                        <ul className="d-flex">
+                          <span className="col-6">
+                            {c.title}
+                            {c.price}{" "}
+                          </span>{" "}
+                          <span className="col-6 d-flex align-items-center justify-content-evenly">
+                            <Button>-</Button> {c.cantidad} <Button>+</Button>{" "}
+                            <Button onClick={() => del(c)} className="btn-danger">
+                              x
+                            </Button>
+                          </span>
+                        </ul>
+                      </Row>
+                    </li>
+                  ))}
+                  <Button
+                    className="btn-danger col-6 mb-3 mx-auto"
+                    onClick={() => clear()}
                   >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                    Eliminar Todo
+                  </Button>
+                  <Button className="btn-success col-6 mx-auto">Comprar!</Button>
                 </Nav>
-                <Form className="d-flex">
-                  <Form.Control
-                    type="search"
-                    placeholder="Search"
-                    className="me-2"
-                    aria-label="Search"
-                  />
-                  <Button variant="outline-success">Search</Button>
-                </Form>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
           </Container>

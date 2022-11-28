@@ -4,7 +4,7 @@ import Loader from "./Loader";
 import ProductDetail from "./ProductDetail";
 import NothingHere from "./NothingHere";
 
-const ProductDetailContainer = () => {
+const ProductDetailContainer = ({ add }) => {
   const [product, setProduct] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const params = useParams();
@@ -19,7 +19,7 @@ const ProductDetailContainer = () => {
   if (!product.id) {
     return <NothingHere />;
   }
-  return <>{isLoading ? <Loader /> : <ProductDetail product={product} />}</>;
+  return <>{isLoading ? <Loader /> : <ProductDetail product={product} add={add} />}</>;
 };
 
 export default ProductDetailContainer;

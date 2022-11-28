@@ -8,13 +8,13 @@ import Landing from "../components/Landing";
 import NothingHere from "../components/NothingHere";
 import ProductDetailContainer from "../components/ProductDetailContainer";
 
-const Main = () => {
+const Main = ({ add, cart, clear, del }) => {
   return (
     <Container fluid className="px-0 d-flex flex-column min-vh-100">
-      <Header />
+      <Header cart={cart} clear={clear} del={del} />
       <Routes>
         <Route element={<Landing />} path="/" />
-        <Route element={<ProductDetailContainer />} path="/products/:id" />
+        <Route element={<ProductDetailContainer add={add} />} path="/products/:id" />
         <Route element={<About />} path="/about" />
         <Route element={<CheckOut />} path="/checkout" />
         <Route element={<NothingHere />} path="*" />

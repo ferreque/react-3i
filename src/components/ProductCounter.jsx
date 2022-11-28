@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button, Container } from "react-bootstrap";
 
 const ProductCounter = ({ contador, setContador }) => {
@@ -6,7 +5,7 @@ const ProductCounter = ({ contador, setContador }) => {
     setContador(contador + 1);
   };
   const resta = () => {
-    contador > 0 && setContador(contador - 1);
+    contador > 1 && setContador(contador - 1);
   };
 
   return (
