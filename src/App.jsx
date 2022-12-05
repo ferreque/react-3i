@@ -47,7 +47,14 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Main add={add} cart={cart} clear={clear} del={del} totalQ={totalQ} />
+        <Main
+          add={add}
+          cart={cart}
+          setCart={setCart}
+          clear={clear}
+          del={del}
+          totalQ={totalQ}
+        />
       </BrowserRouter>
     </>
   );
