@@ -30,7 +30,12 @@ function App() {
   };
 
   const totalQ = () => {
-    console.log("totalQ");
+    let q = 0;
+    for (let i = 0; i < cart.length; i++) {
+      const element = cart[i];
+      q += element.cantidad;
+    }
+    return q;
   };
   const clear = () => {
     setCart([]);
@@ -42,7 +47,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Main add={add} cart={cart} clear={clear} del={del} />
+        <Main add={add} cart={cart} clear={clear} del={del} totalQ={totalQ} />
       </BrowserRouter>
     </>
   );

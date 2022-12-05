@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Cart from "./Cart";
 import "../styles/styles.css";
 
-const Header = ({ cart, clear, del }) => {
+const Header = ({ cart, clear, del, totalQ }) => {
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg">
@@ -20,12 +20,14 @@ const Header = ({ cart, clear, del }) => {
               Kwick E-Mart
             </Navbar.Brand>
           </Link>
+
           <div className="d-flex">
             <span>
-              <Cart cart={cart} clear={clear} del={del} />
+              <Cart cart={cart} clear={clear} del={del} totalQ={totalQ} />
             </span>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
           </div>
+
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#home">Home</Nav.Link>

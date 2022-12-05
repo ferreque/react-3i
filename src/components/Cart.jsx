@@ -1,11 +1,11 @@
-import { Row, Col } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
-const Cart = ({ cart, clear, del }) => {
+const Cart = ({ cart, clear, del, totalQ }) => {
   return (
     <>
       {[false].map((expand) => (
@@ -42,6 +42,8 @@ const Cart = ({ cart, clear, del }) => {
                       </Row>
                     </li>
                   ))}
+                  {cart.length === 0 && <p>Carrito vacío</p>}
+                  <h1>Cantidad total: {totalQ()}</h1>
                   <Button
                     className="btn-danger col-6 mb-3 mx-auto"
                     onClick={() => clear()}
