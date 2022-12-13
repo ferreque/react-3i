@@ -1,9 +1,10 @@
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Navbar, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Cart from "./Cart";
 import "../styles/styles.css";
+import Login from "./Login";
 
-const Header = ({ cart, setCart, clear, del, totalQ }) => {
+const Header = ({ cart, setCart, clear, del, totalQ, totalPrice }) => {
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg">
@@ -29,24 +30,13 @@ const Header = ({ cart, setCart, clear, del, totalQ }) => {
                 clear={clear}
                 del={del}
                 totalQ={totalQ}
+                totalPrice={totalPrice}
               />
             </span>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Link className="mx-3" to={"/login"}>
+              <Button>Login</Button>
+            </Link>
           </div>
-
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
         </Container>
       </Navbar>
     </>

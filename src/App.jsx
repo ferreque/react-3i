@@ -4,10 +4,13 @@ import { BrowserRouter } from "react-router-dom";
 import Main from "./views/Main";
 
 function App() {
-  const [cart, setCart] = useState([]);
+  // USERS = [];
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  const [cart, setCart] = useState(carrito);
 
   useEffect(() => {
     console.log(cart);
+    localStorage.setItem("carrito", JSON.stringify(cart));
   }, [cart]);
 
   const add = (p) => {
@@ -39,9 +42,23 @@ function App() {
   };
   const clear = () => {
     setCart([]);
+    localStorage.setItem("carrito", JSON.stringify(cart));
   };
   const isDuplicated = (t) => {
     return cart.find((c) => c.title === t);
+  };
+  const totalPrice = (t) => {
+    let price = 0;
+    for (let i = 0; i < cart.length; i++) {
+      const element = cart[i];
+      price += element.cantidad * element.price;
+    }
+    return price;
+  };
+  const [isValidated, setIsValidated] = useState(false);
+
+  const validate = () => {
+    console.log("validate");
   };
 
   return (
@@ -54,6 +71,10 @@ function App() {
           clear={clear}
           del={del}
           totalQ={totalQ}
+          totalPrice={totalPrice}
+          isValidated={isValidated}
+          setIsValidated={setIsValidated}
+          validate={validate}
         />
       </BrowserRouter>
     </>
