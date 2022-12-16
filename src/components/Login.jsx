@@ -3,15 +3,13 @@ import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function Login({ isValidates, setIsValidated, validate }) {
+function Login({ auth, setAuth, validate }) {
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
-  useEffect(() => {
-    console.log(`mail : ${mail} pass : ${pass}`);
-  }, [mail, pass]);
+
   const handleValidation = (e) => {
     e.preventDefault();
-    validate();
+    validate(mail, pass);
   };
 
   return (

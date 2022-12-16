@@ -2,17 +2,13 @@ import { useState } from "react";
 import { Card, Container, Form } from "react-bootstrap";
 import validator from "validator";
 
-const CheckOut = ({ cart, totalPrice }) => {
+const CheckOut = ({ cart, totalPrice, auth }) => {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [phone, setPhone] = useState("");
   const [firstValidationName, setFirstValidationName] = useState(false);
   const [firstValidationMail, setFirstValidationMail] = useState(false);
   const [firstValidationPhone, setFirstValidationPhone] = useState(false);
-
-  // let nameOk = false;
-  // let mailOk = false;
-  // let phoneOk = false;
 
   const saveName = (e) => {
     setName(e.target.value);
@@ -50,10 +46,6 @@ const CheckOut = ({ cart, totalPrice }) => {
       console.log("NO VALIDADO");
     }
   };
-
-  // useEffect(() => {
-
-  // }, [name, mail, phone]);
 
   return (
     <>

@@ -4,14 +4,19 @@ import { BrowserRouter } from "react-router-dom";
 import Main from "./views/Main";
 
 function App() {
-  // USERS = [];
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  let USERS = [
+    { user: "admin", pass: "admin", role: "admin" },
+    { user: "user", pass: "user", role: "user" },
+  ];
   const [cart, setCart] = useState(carrito);
+  const [auth, setAuth] = useState({ user: "", role: "" });
 
   useEffect(() => {
     console.log(cart);
     localStorage.setItem("carrito", JSON.stringify(cart));
-  }, [cart]);
+    console.log(auth);
+  }, [cart, auth]);
 
   const add = (p) => {
     if (isDuplicated(p.title)) {
@@ -55,10 +60,18 @@ function App() {
     }
     return price;
   };
-  const [isValidated, setIsValidated] = useState(false);
 
-  const validate = () => {
-    console.log("validate");
+  const validate = (m, p) => {
+    const userValid = USERS.find((user) => user.user === m);
+    if (userValid) {
+      const passValid = p === userValid.pass;
+      if (passValid) {
+        window.alert("Bienvenido");
+        setAuth({ user: userValid.user, role: userValid.role });
+      }
+    } else {
+      window.alert("Usuario o contrasena invalido");
+    }
   };
 
   return (
@@ -72,8 +85,8 @@ function App() {
           del={del}
           totalQ={totalQ}
           totalPrice={totalPrice}
-          isValidated={isValidated}
-          setIsValidated={setIsValidated}
+          auth={auth}
+          setAuth={setAuth}
           validate={validate}
         />
       </BrowserRouter>

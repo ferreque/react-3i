@@ -17,8 +17,8 @@ const Main = ({
   del,
   totalQ,
   totalPrice,
-  isValidated,
-  setIsValidate,
+  auth,
+  setAuth,
   validate,
 }) => {
   return (
@@ -30,6 +30,7 @@ const Main = ({
         totalQ={totalQ}
         setCart={setCart}
         totalPrice={totalPrice}
+        auth={auth}
       />
       <Routes>
         <Route element={<Landing />} path="/" />
@@ -38,26 +39,16 @@ const Main = ({
 
         <Route
           element={
-            isValidated ? (
-              <CheckOut cart={cart} totalPrice={totalPrice} isValidated={isValidated} />
+            auth.user !== "" ? (
+              <CheckOut cart={cart} totalPrice={totalPrice} auth={auth} />
             ) : (
-              <Login
-                isValidated={isValidated}
-                setIsValidate={setIsValidate}
-                validate={validate}
-              />
+              <Login auth={auth} setAuth={setAuth} validate={validate} />
             )
           }
           path="/checkout"
         />
         <Route
-          element={
-            <Login
-              isValidated={isValidated}
-              setIsValidate={setIsValidate}
-              validate={validate}
-            />
-          }
+          element={<Login auth={auth} setAuth={setAuth} validate={validate} />}
           path="/login"
         />
         <Route element={<NothingHere />} path="*" />

@@ -4,7 +4,7 @@ import Cart from "./Cart";
 import "../styles/styles.css";
 import Login from "./Login";
 
-const Header = ({ cart, setCart, clear, del, totalQ, totalPrice }) => {
+const Header = ({ cart, setCart, clear, del, totalQ, totalPrice, auth }) => {
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg">
@@ -33,8 +33,13 @@ const Header = ({ cart, setCart, clear, del, totalQ, totalPrice }) => {
                 totalPrice={totalPrice}
               />
             </span>
-            <Link className="mx-3" to={"/login"}>
-              <Button>Login</Button>
+            <Link className="mx-2 " to={"/login"}>
+              <Button
+                variant={auth.user !== "" ? "outline-success" : "outline-danger"}
+                className="fs-2 m-0 p-0"
+              >
+                {auth.user === "" ? "Login" : "🚪"}
+              </Button>
             </Link>
           </div>
         </Container>

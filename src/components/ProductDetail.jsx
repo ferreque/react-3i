@@ -1,5 +1,6 @@
 import { Button, Card, Container } from "react-bootstrap";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import ProductCounter from "./ProductCounter";
 
 const ProductDetail = ({ product, add }) => {
@@ -32,6 +33,13 @@ const ProductDetail = ({ product, add }) => {
           >
             Agregar al carrito
           </Button>
+        </Container>
+      </Card.Footer>
+      <Card.Footer>
+        <Container className="d-flex justify-content-center align-items-center">
+          <Link to="/checkout">
+            <Button>Ir al Carrito</Button>
+          </Link>
         </Container>
       </Card.Footer>
     </Card>
