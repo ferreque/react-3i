@@ -4,7 +4,7 @@ import Loader from "./Loader";
 import ProductDetail from "./ProductDetail";
 import NothingHere from "./NothingHere";
 
-const ProductDetailContainer = ({ add }) => {
+const ProductDetailContainer = ({ add, auth }) => {
   const [product, setProduct] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const params = useParams();
@@ -19,7 +19,11 @@ const ProductDetailContainer = ({ add }) => {
   if (!product.id) {
     return <NothingHere />;
   }
-  return <>{isLoading ? <Loader /> : <ProductDetail product={product} add={add} />}</>;
+  return (
+    <>
+      {isLoading ? <Loader /> : <ProductDetail product={product} add={add} auth={auth} />}
+    </>
+  );
 };
 
 export default ProductDetailContainer;

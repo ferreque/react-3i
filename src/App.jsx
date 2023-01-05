@@ -74,6 +74,10 @@ function App() {
     }
   };
 
+  const logout = () => {
+    setAuth({ user: "", role: "" });
+  };
+
   return (
     <>
       <BrowserRouter>
@@ -88,6 +92,7 @@ function App() {
           auth={auth}
           setAuth={setAuth}
           validate={validate}
+          logout={logout}
         />
       </BrowserRouter>
     </>

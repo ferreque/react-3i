@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate, redirect } from "react-router-dom";
 import About from "../components/About";
 import CheckOut from "../components/CheckOut";
 import Footer from "../components/Footer";
@@ -8,6 +8,7 @@ import Landing from "../components/Landing";
 import NothingHere from "../components/NothingHere";
 import ProductDetailContainer from "../components/ProductDetailContainer";
 import Login from "../components/Login";
+import { useEffect } from "react";
 
 const Main = ({
   add,
@@ -20,7 +21,16 @@ const Main = ({
   auth,
   setAuth,
   validate,
+  logout,
 }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (validate) {
+      navigate("/");
+    }
+  }, [validate]);
+
   return (
     <Container fluid className="px-0 d-flex flex-column min-vh-100">
       <Header
@@ -31,10 +41,14 @@ const Main = ({
         setCart={setCart}
         totalPrice={totalPrice}
         auth={auth}
+        logout={logout}
       />
       <Routes>
         <Route element={<Landing />} path="/" />
-        <Route element={<ProductDetailContainer add={add} />} path="/products/:id" />
+        <Route
+          element={<ProductDetailContainer add={add} auth={auth} />}
+          path="/products/:id"
+        />
         <Route element={<About />} path="/about" />
 
         <Route
