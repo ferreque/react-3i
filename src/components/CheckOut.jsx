@@ -1,14 +1,17 @@
-import { useState } from "react";
-import { Card, Container, Form } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Card, Container, Form, Button } from "react-bootstrap";
 import validator from "validator";
+import { ToastContainer, toast } from "react-toastify";
 
-const CheckOut = ({ cart, totalPrice, auth }) => {
+const CheckOut = ({ cart, totalPrice, del }) => {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [phone, setPhone] = useState("");
   const [firstValidationName, setFirstValidationName] = useState(false);
   const [firstValidationMail, setFirstValidationMail] = useState(false);
   const [firstValidationPhone, setFirstValidationPhone] = useState(false);
+
+  const [showMessage, setShowMessage] = useState("");
 
   const saveName = (e) => {
     setName(e.target.value);
@@ -29,6 +32,11 @@ const CheckOut = ({ cart, totalPrice, auth }) => {
   const validatePhone = (p) => {
     return validator.isMobilePhone(p);
   };
+  useEffect(() => {
+    if (showMessage) {
+      toast.success(`Compra extitosa ID:${showMessage}`);
+    }
+  }, [showMessage]);
 
   const handleBuy = () => {
     if (validateName(name) && validateMail(mail) && validatePhone(phone)) {
@@ -38,26 +46,41 @@ const CheckOut = ({ cart, totalPrice, auth }) => {
         phone: phone,
         cart: [...cart, { total: totalPrice() }],
       };
-      console.log(cartToPay);
+      fetch("http://localhost:4000/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(cartToPay),
+      })
+        .then((res) => res.json())
+        .then((json) => setShowMessage(json.id));
     } else {
-      setFirstValidationMail(true);
-      setFirstValidationName(true);
-      setFirstValidationPhone(true);
-      console.log("NO VALIDADO");
+      setFirstValidationMail(false);
+      setFirstValidationName(false);
+      setFirstValidationPhone(false);
+      console.log("Introduzca bien los datos");
     }
   };
 
   return (
     <>
       <Container className="my-4">
+        <ToastContainer />
         <h2>Resumen de tu compra:</h2>
         <Card className="px-4 font-weight-bold">
           {cart.map((c, i) => (
-            <ul className="mt-3 border-5" key={i}>
+            <ul className="mt-3 border-5" key={Simbol(i).toString() + i}>
               <h5>{c.title}</h5>
-              <div className="text-bg-dark">
-                Unidades = {c.cantidad} x ${c.price} Precio total: ${c.price * c.cantidad}
-              </div>{" "}
+              <div className="row">
+                <div className="text-bg-dark col-10">
+                  Unidades = {c.cantidad} x ${c.price} Precio total: $
+                  {c.price * c.cantidad}
+                </div>{" "}
+                <span className="col-2 d-flex align-items-center justify-content-evenly">
+                  <Button onClick={() => del(c)} className="btn-danger">
+                    x
+                  </Button>
+                </span>
+              </div>
             </ul>
           ))}
           <h3>Total de la compra: ${totalPrice()}</h3>

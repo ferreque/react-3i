@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function Login({ auth, setAuth, validate }) {
+function Login({ validate }) {
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
 

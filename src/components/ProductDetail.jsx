@@ -1,4 +1,4 @@
-import { Button, Card, Container, Modal, Form } from "react-bootstrap";
+import { Button, Card, Container, Modal, Form, Row } from "react-bootstrap";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCounter from "./ProductCounter";
@@ -12,6 +12,12 @@ const ProductDetail = ({ product, add, auth }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const comments = [
+    { user: "user1", comment: "Comentario uno" },
+    { user: "user2", comment: "Comentario dos" },
+    { user: "user3", comment: "Comentario tres" },
+  ];
 
   return (
     <Card className="m-2 border-2 h-100">
@@ -51,6 +57,25 @@ const ProductDetail = ({ product, add, auth }) => {
               </Link>
             </Container>
           </Card.Footer>
+          <Container>
+            <h1>Comments of our clients about this product:</h1>
+            <Row className="d-flex justify-content-between">
+              <input
+                className="col-8"
+                type="text"
+                placeholder="Introduce your commentarie"
+              ></input>
+              <button className="btn btn-success col-3">Send</button>
+            </Row>
+            <Container>
+              {comments.map((comment, i) => (
+                <div className="m-2 border border-3 " key={i}>
+                  <span>{comment.user}</span>
+                  {" : "} <span>{comment.comment}</span>
+                </div>
+              ))}
+            </Container>
+          </Container>
         </>
       ) : (
         <Card.Footer>

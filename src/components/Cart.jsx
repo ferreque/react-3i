@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Nav from "react-bootstrap/Nav";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import { Link } from "react-router-dom";
 
 const Cart = ({ cart, setCart, clear, del, totalQ, totalPrice }) => {
   const [show, setShow] = useState(false);
@@ -78,7 +79,11 @@ const Cart = ({ cart, setCart, clear, del, totalQ, totalPrice }) => {
             <Button className="btn-danger col-6 mb-3 mx-auto" onClick={() => clear()}>
               Eliminar Todo
             </Button>
-            <Button className="btn-success col-6 mx-auto">Comprar!</Button>
+            <Container className="d-flex justify-content-center align-items-center">
+              <Link to={"/checkout"}>
+                <Button className="btn-success mx-auto">Comprar!</Button>
+              </Link>
+            </Container>
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>

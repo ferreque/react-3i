@@ -1,6 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Main from "./views/Main";
 
 function App() {
@@ -13,9 +15,7 @@ function App() {
   const [auth, setAuth] = useState({ user: "", role: "" });
 
   useEffect(() => {
-    console.log(cart);
     localStorage.setItem("carrito", JSON.stringify(cart));
-    console.log(auth);
   }, [cart, auth]);
 
   const add = (p) => {
@@ -30,9 +30,7 @@ function App() {
   };
   const del = (p) => {
     if (p) {
-      console.log(cart);
       const restCart = cart.filter((c) => c !== p);
-      console.log(restCart);
       setCart(restCart);
     }
   };
@@ -66,20 +64,22 @@ function App() {
     if (userValid) {
       const passValid = p === userValid.pass;
       if (passValid) {
-        window.alert("Bienvenido");
         setAuth({ user: userValid.user, role: userValid.role });
+        toast(`Welcome ${userValid.user}`, { autoClose: 1500 });
       }
     } else {
-      window.alert("Usuario o contrasena invalido");
+      toast.error("Usuario o contrasena invalido", { autoClose: 1500 });
     }
   };
 
   const logout = () => {
     setAuth({ user: "", role: "" });
+    toast("Session closed", { autoClose: 1500 });
   };
 
   return (
     <>
+      <ToastContainer />
       <BrowserRouter>
         <Main
           add={add}

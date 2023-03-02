@@ -3,10 +3,10 @@ import Product from "./Product";
 
 const ProductList = ({ data }) => {
   return (
-    <Container>
+    <Container className="mb-3">
       <Row md={3} xs={1}>
-        {data.map((product) => (
-          <Col className="my-1" key={product.id}>
+        {data.allProducts.map((product, i) => (
+          <Col className="my-1" key={Symbol(i).toString + i}>
             <Product product={product} />
           </Col>
         ))}

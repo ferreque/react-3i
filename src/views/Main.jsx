@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import { Routes, Route, useNavigate, redirect } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import About from "../components/About";
 import CheckOut from "../components/CheckOut";
 import Footer from "../components/Footer";
@@ -26,7 +26,7 @@ const Main = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (validate) {
+    if (validate && window.location.href === "http://localhost:3000/login") {
       navigate("/");
     }
   }, [validate]);
@@ -54,7 +54,13 @@ const Main = ({
         <Route
           element={
             auth.user !== "" ? (
-              <CheckOut cart={cart} totalPrice={totalPrice} auth={auth} />
+              <CheckOut
+                cart={cart}
+                totalPrice={totalPrice}
+                auth={auth}
+                setCart={setCart}
+                del={del}
+              />
             ) : (
               <Login auth={auth} setAuth={setAuth} validate={validate} />
             )

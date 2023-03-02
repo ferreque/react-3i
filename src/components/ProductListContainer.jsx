@@ -7,7 +7,7 @@ const ProductListContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
+    fetch("http://localhost:4000/products/all")
       .then((res) => res.json())
       .then((json) => setData(json))
       .finally(() => setIsLoading(false));
