@@ -18,7 +18,7 @@ const Header = ({ cart, setCart, clear, del, totalQ, totalPrice, auth, logout })
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
           <Link to={"/"}>
-            <Navbar.Brand href="#home">
+            <Navbar.Brand>
               <img
                 alt="react-img"
                 src="/img/logo192.png"

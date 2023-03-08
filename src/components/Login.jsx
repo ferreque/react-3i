@@ -27,6 +27,12 @@ function Login({ login }) {
   };
 
   useEffect(() => {
+    alert(
+      "Página de prueba! para iniciar sesion como usuario utilice el email: user@user.com, como administrador: admin@admin.com. En ambos casos la contraseña es 123456"
+    );
+  }, []);
+
+  useEffect(() => {
     if (loginOk.role) {
       login(mail, loginOk.role);
       navigate("/");
