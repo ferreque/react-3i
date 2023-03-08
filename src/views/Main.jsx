@@ -9,6 +9,7 @@ import NothingHere from "../components/NothingHere";
 import ProductDetailContainer from "../components/ProductDetailContainer";
 import Login from "../components/Login";
 import { useEffect } from "react";
+import SignUp from "../components/SingUp";
 
 const Main = ({
   add,
@@ -20,16 +21,16 @@ const Main = ({
   totalPrice,
   auth,
   setAuth,
-  validate,
+  login,
   logout,
 }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (validate && window.location.href === "http://localhost:3000/login") {
+    if (login && window.location.href === "http://localhost:3000/login") {
       navigate("/");
     }
-  }, [validate]);
+  }, [login]);
 
   return (
     <Container fluid className="px-0 d-flex flex-column min-vh-100">
@@ -62,15 +63,16 @@ const Main = ({
                 del={del}
               />
             ) : (
-              <Login auth={auth} setAuth={setAuth} validate={validate} />
+              <Login auth={auth} setAuth={setAuth} login={login} />
             )
           }
           path="/checkout"
         />
         <Route
-          element={<Login auth={auth} setAuth={setAuth} validate={validate} />}
+          element={<Login auth={auth} setAuth={setAuth} login={login} />}
           path="/login"
         />
+        <Route element={<SignUp />} path="/signup" />
         <Route element={<NothingHere />} path="*" />
       </Routes>
       <Footer />

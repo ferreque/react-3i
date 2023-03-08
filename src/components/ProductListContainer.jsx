@@ -7,7 +7,7 @@ const ProductListContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:4000/products/all")
+    fetch("https://node-3i.vercel.app/products/all")
       .then((res) => res.json())
       .then((json) => setData(json))
       .finally(() => setIsLoading(false));

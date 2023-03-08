@@ -1,20 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 
-function Login({ validate }) {
+function Login({ login }) {
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
+  const [loginOk, setLoginOk] = useState("");
+  const navigate = useNavigate();
 
   const handleValidation = (e) => {
     e.preventDefault();
-    validate(mail, pass);
+    setLoginOk({ name: null, role: null });
+    fetch("https://node-3i.vercel.app/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ mail: mail, password: pass }),
+    })
+      .then((res) => res.json())
+      .then((json) => setLoginOk({ name: json.name, role: json.rol }))
+      .catch((error) => setLoginOk({ name: null, role: false }));
   };
 
+  useEffect(() => {
+    if (loginOk.role) {
+      login(mail, loginOk.role);
+      navigate("/");
+      toast(`Bienvenido ${mail}!`, { autoClose: 1500 });
+    } else if (loginOk.role === false) {
+      toast(`Credenciales incorrectas`, { autoClose: 1500 });
+    }
+  }, [loginOk]);
+
   return (
-    <Form>
-      <Container className="mt-5">
+    <Container className="mt-5">
+      <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -39,8 +63,11 @@ function Login({ validate }) {
         <Button variant="primary" type="submit" onClick={(e) => handleValidation(e)}>
           Submit
         </Button>
-      </Container>
-    </Form>
+        <span className="ms-3">
+          Sí no tenés usuario, <Link to="/signup">click aquí</Link> para registrarte.
+        </span>
+      </Form>
+    </Container>
   );
 }
 

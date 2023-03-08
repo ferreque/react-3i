@@ -12,6 +12,7 @@ const Header = ({ cart, setCart, clear, del, totalQ, totalPrice, auth, logout })
   const handleClick = () => {
     authOk() ? logout() : navegate("/login");
   };
+
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg">

@@ -7,15 +7,13 @@ import Main from "./views/Main";
 
 function App() {
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-  let USERS = [
-    { user: "admin", pass: "admin", role: "admin" },
-    { user: "user", pass: "user", role: "user" },
-  ];
+  let authentication = JSON.parse(localStorage.getItem("user")) || { user: "", role: "" };
   const [cart, setCart] = useState(carrito);
-  const [auth, setAuth] = useState({ user: "", role: "" });
+  const [auth, setAuth] = useState(authentication);
 
   useEffect(() => {
     localStorage.setItem("carrito", JSON.stringify(cart));
+    localStorage.setItem("user", JSON.stringify(auth));
   }, [cart, auth]);
 
   const add = (p) => {
@@ -59,21 +57,13 @@ function App() {
     return price;
   };
 
-  const validate = (m, p) => {
-    const userValid = USERS.find((user) => user.user === m);
-    if (userValid) {
-      const passValid = p === userValid.pass;
-      if (passValid) {
-        setAuth({ user: userValid.user, role: userValid.role });
-        toast(`Welcome ${userValid.user}`, { autoClose: 1500 });
-      }
-    } else {
-      toast.error("Usuario o contrasena invalido", { autoClose: 1500 });
-    }
+  const login = (u, r) => {
+    setAuth({ user: u, role: r });
   };
 
   const logout = () => {
     setAuth({ user: "", role: "" });
+
     toast("Session closed", { autoClose: 1500 });
   };
 
@@ -91,7 +81,7 @@ function App() {
           totalPrice={totalPrice}
           auth={auth}
           setAuth={setAuth}
-          validate={validate}
+          login={login}
           logout={logout}
         />
       </BrowserRouter>

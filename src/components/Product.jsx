@@ -13,7 +13,7 @@ const Product = ({ product }) => {
       </Card.Body>
       <Card.Footer>
         <Container className="d-flex justify-content-center align-items-center">
-          <Link to={`/products/${product.id}`}>
+          <Link to={`/products/${product._id}`}>
             <Button size="sm"> Ir al producto</Button>
           </Link>
         </Container>
