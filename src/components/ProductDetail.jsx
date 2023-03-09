@@ -1,20 +1,20 @@
-import { Button, Card, Container, Modal, Form, Row } from "react-bootstrap";
+import { Button, Card, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ProductCounter from "./ProductCounter";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import EditProduct from "./EditProduct";
 
 const ProductDetail = ({ product, add, auth }) => {
   const [contador, setContador] = useState(1);
   const [editName, setEditName] = useState(product.title);
   const [editPrice, setEditPrice] = useState(product.price);
   const [editDescription, setEditDescription] = useState(product.description);
+  const handleShow = () => setShow(true);
   const [submitOk, setSubmitOk] = useState(null);
   const [deleteProd, setDeleteProd] = useState(null);
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const navegate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -85,7 +85,7 @@ const ProductDetail = ({ product, add, auth }) => {
           <Card.Text>${product.price}</Card.Text>
           <Card.Text>{product.description}</Card.Text>
         </Card.Body>
-        {auth.role !== "ADMIN_ROLE" && (
+        {auth.rol !== "ADMIN_ROLE" && (
           <>
             <Card.Footer className="border-0">
               <Container className="d-flex justify-content-center align-items-center">
@@ -116,7 +116,7 @@ const ProductDetail = ({ product, add, auth }) => {
             </Card.Footer>
           </>
         )}
-        {auth.role === "ADMIN_ROLE" && (
+        {auth.rol === "ADMIN_ROLE" && (
           <Card.Footer className="border-0">
             <Container className="d-flex justify-content-center align-items-center">
               <Button className="mx-2" size="sm" onClick={handleShow}>
@@ -139,7 +139,19 @@ const ProductDetail = ({ product, add, auth }) => {
           </div>
         ))}
       </Container>
-      <Modal show={show} onHide={handleClose}>
+      <EditProduct
+        editName={editName}
+        product={product}
+        show={show}
+        setShow={setShow}
+        handleSubmit={handleSubmit}
+        setEditName={setEditName}
+        editDescription={editDescription}
+        setEditDescription={setEditDescription}
+        editPrice={editPrice}
+        setEditPrice={setEditPrice}
+      />
+      {/* <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Editar producto</Modal.Title>
         </Modal.Header>
@@ -184,7 +196,7 @@ const ProductDetail = ({ product, add, auth }) => {
             Close
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </>
   );
 };

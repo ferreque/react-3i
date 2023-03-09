@@ -7,7 +7,7 @@ import Main from "./views/Main";
 
 function App() {
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-  let authentication = JSON.parse(localStorage.getItem("user")) || { user: "", role: "" };
+  let authentication = JSON.parse(localStorage.getItem("user")) || { user: "", rol: "" };
   const [cart, setCart] = useState(carrito);
   const [auth, setAuth] = useState(authentication);
 
@@ -58,11 +58,11 @@ function App() {
   };
 
   const login = (u, r) => {
-    setAuth({ user: u, role: r });
+    setAuth({ user: u, rol: r });
   };
 
   const logout = () => {
-    setAuth({ user: "", role: "" });
+    setAuth({ user: "", rol: "" });
 
     toast("Session closed", { autoClose: 1500 });
   };

@@ -31,6 +31,9 @@ const Header = ({ cart, setCart, clear, del, totalQ, totalPrice, auth, logout })
           </Link>
 
           <div className="d-flex">
+            <Link to={"/admin"} variant={"outline-success"} className="fs-2 mx-2 p-0">
+              {auth.rol === "ADMIN_ROLE" ? "ADMIN" : null}
+            </Link>
             <span>
               <Cart
                 cart={cart}

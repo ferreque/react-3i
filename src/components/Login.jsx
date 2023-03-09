@@ -13,7 +13,7 @@ function Login({ login }) {
 
   const handleValidation = (e) => {
     e.preventDefault();
-    setLoginOk({ name: null, role: null });
+    setLoginOk({ name: null, rol: null });
     fetch("https://node-3i.vercel.app/users/login", {
       method: "POST",
       headers: {
@@ -22,8 +22,9 @@ function Login({ login }) {
       body: JSON.stringify({ mail: mail, password: pass }),
     })
       .then((res) => res.json())
-      .then((json) => setLoginOk({ name: json.name, role: json.rol }))
-      .catch((error) => setLoginOk({ name: null, role: false }));
+      .then((json) => setLoginOk({ name: mail, rol: json.rol }))
+
+      .catch((error) => setLoginOk({ name: null, rol: false }));
   };
 
   useEffect(() => {
@@ -33,11 +34,11 @@ function Login({ login }) {
   }, []);
 
   useEffect(() => {
-    if (loginOk.role) {
-      login(mail, loginOk.role);
+    if (loginOk.rol) {
+      login(mail, loginOk.rol);
       navigate("/");
       toast(`Bienvenido ${mail}!`, { autoClose: 1500 });
-    } else if (loginOk.role === false) {
+    } else if (loginOk.rol === false) {
       toast(`Credenciales incorrectas`, { autoClose: 1500 });
     }
   }, [loginOk]);
@@ -67,7 +68,7 @@ function Login({ login }) {
         </Form.Group>
 
         <Button variant="primary" type="submit" onClick={(e) => handleValidation(e)}>
-          Submit
+          Iniciar Sesión
         </Button>
         <span className="ms-3">
           Sí no tenés usuario, <Link to="/signup">click aquí</Link> para registrarte.

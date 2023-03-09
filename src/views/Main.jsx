@@ -10,6 +10,7 @@ import ProductDetailContainer from "../components/ProductDetailContainer";
 import Login from "../components/Login";
 import { useEffect } from "react";
 import SignUp from "../components/SingUp";
+import Admin from "../components/Admin";
 
 const Main = ({
   add,
@@ -45,6 +46,7 @@ const Main = ({
         logout={logout}
       />
       <Routes>
+        <Route element={<Admin />} path="/admin" />
         <Route element={<Landing />} path="/" />
         <Route
           element={<ProductDetailContainer add={add} auth={auth} />}
