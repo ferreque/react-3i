@@ -6,6 +6,7 @@ import EditProduct from "./EditProduct";
 import EditUser from "./EditUser";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import AddProduct from "./AddProduct";
 const Admin = () => {
   const navegate = useNavigate();
   const [products, setProducts] = useState([]);
@@ -20,10 +21,12 @@ const Admin = () => {
     setProduct(product);
     setShowProduct(true);
   };
+
   const handleShowUsers = (user) => {
     setUser(user);
     setShowUser(true);
   };
+  const [showNewProduct, setShowNewProduct] = useState(false);
   const [showProduct, setShowProduct] = useState(false);
   const [showUser, setShowUser] = useState(false);
 
@@ -89,17 +92,13 @@ const Admin = () => {
     }
   }, [deleteUser]);
 
-  const AddProduct = () => {
-    console.log("add product");
-  };
-
   return (
     <>
       {" "}
       <Container>
         <div className="d-flex justify-content-around">
           <h1 className="d-inline">PRODUCTOS</h1>
-          <button onClick={() => AddProduct()}>➕</button>
+          <button onClick={() => setShowNewProduct(true)}>➕</button>
         </div>
         {isLoadingProd ? (
           <Loader />
@@ -109,7 +108,7 @@ const Admin = () => {
               <tr>
                 <th>Titulo</th>
                 <th>Categoria</th>
-                <th>Precio</th>
+                <th>Precio $$$</th>
                 <th>Editar</th>
                 <th>Borrar</th>
               </tr>
@@ -138,7 +137,6 @@ const Admin = () => {
           {" "}
           <div className="d-flex justify-content-around">
             <h1>USUARIOS</h1>
-            <button>➕</button>
           </div>
           {isLoadingUser ? (
             <Loader />
@@ -184,6 +182,7 @@ const Admin = () => {
       </Container>
       <EditProduct show={showProduct} setShow={setShowProduct} product={product} />
       <EditUser show={showUser} setShow={setShowUser} user={user} />
+      <AddProduct show={showNewProduct} setShow={setShowNewProduct} />
     </>
   );
 };

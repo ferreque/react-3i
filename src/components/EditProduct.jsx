@@ -16,8 +16,7 @@ function EditProduct({ show, setShow, product }) {
   }, [show]);
 
   const handleClose = () => setShow(false);
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     setSubmitOk(null);
     fetch("https://node-3i.vercel.app/products/" + product._id, {
       method: "PUT",
@@ -25,7 +24,6 @@ function EditProduct({ show, setShow, product }) {
       body: JSON.stringify({
         category: product.category,
         description: editDescription,
-        image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
         price: editPrice,
         title: editName,
       }),
@@ -79,7 +77,7 @@ function EditProduct({ show, setShow, product }) {
             />
           </Form.Group>
 
-          <Button type="submit" variant="primary" onClick={(e) => handleSubmit(e)}>
+          <Button type="submit" variant="primary" onClick={() => handleSubmit()}>
             Guardar cambios
           </Button>
         </Form>

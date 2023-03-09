@@ -39,26 +39,28 @@ const CheckOut = ({ cart, totalPrice, del }) => {
   }, [showMessage]);
 
   const handleBuy = () => {
-    if (validateName(name) && validateMail(mail) && validatePhone(phone)) {
-      const cartToPay = {
-        name: name,
-        mail: mail,
-        phone: phone,
-        cart: [...cart, { total: totalPrice() }],
-      };
-      fetch("http://localhost:4000/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(cartToPay),
-      })
-        .then((res) => res.json())
-        .then((json) => setShowMessage(json.id));
-    } else {
-      setFirstValidationMail(false);
-      setFirstValidationName(false);
-      setFirstValidationPhone(false);
-      console.log("Introduzca bien los datos");
-    }
+    setShowMessage(true);
+    window.alert("Parte de pagina no desarrollada");
+    // if (validateName(name) && validateMail(mail) && validatePhone(phone)) {
+    //   const cartToPay = {
+    //     name: name,
+    //     mail: mail,
+    //     phone: phone,
+    //     cart: [...cart, { total: totalPrice() }],
+    //   };
+    //   fetch("https://node-3i.vercel.app/checkout", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(cartToPay),
+    //   })
+    //     .then((res) => res.json())
+    //     .then((json) => setShowMessage(json.id));
+    // } else {
+    //   setFirstValidationMail(false);
+    //   setFirstValidationName(false);
+    //   setFirstValidationPhone(false);
+    //   console.log("Introduzca bien los datos");
+    // }
   };
 
   return (
@@ -68,7 +70,7 @@ const CheckOut = ({ cart, totalPrice, del }) => {
         <h2>Resumen de tu compra:</h2>
         <Card className="px-4 font-weight-bold">
           {cart.map((c, i) => (
-            <ul className="mt-3 border-5" key={Simbol(i).toString() + i}>
+            <ul className="mt-3 border-5" key={c.id}>
               <h5>{c.title}</h5>
               <div className="row">
                 <div className="text-bg-dark col-10">
