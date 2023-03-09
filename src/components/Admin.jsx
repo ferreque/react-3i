@@ -2,10 +2,24 @@ import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Container } from "react-bootstrap";
 import Loader from "./Loader";
+import EditProduct from "./EditProduct";
+import EditUser from "./EditUser";
 const Admin = () => {
   const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState({});
   const [users, setUsers] = useState([]);
+  const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const handleShowProd = (product) => {
+    setProduct(product);
+    setShowProduct(true);
+  };
+  const handleShowUsers = (user) => {
+    setUser(user);
+    setShowUser(true);
+  };
+  const [showProduct, setShowProduct] = useState(false);
+  const [showUser, setShowUser] = useState(false);
 
   useEffect(() => {
     fetch("https://node-3i.vercel.app/products/all")
@@ -50,7 +64,7 @@ const Admin = () => {
                   <td>{product.category}</td>
                   <td>{product.price}</td>
                   <td>
-                    <button>📝</button>
+                    <button onClick={(e) => handleShowProd(product)}>📝</button>
                   </td>
                   <td>
                     <button>❌</button>
@@ -89,11 +103,13 @@ const Admin = () => {
                     <td>{user.mail}</td>
                     <td>{user.rol}</td>
                     <td>
-                      <button>📝</button>
+                      {user.mail === "admin@admin.com" ? (
+                        ""
+                      ) : (
+                        <button onClick={(e) => handleShowUsers(user)}>📝</button>
+                      )}
                     </td>
-                    <td>
-                      <button>❌</button>
-                    </td>
+                    <td> {user.mail === "admin@admin.com" ? "" : <button>❌</button>}</td>
                   </tr>
                 ))}
               </tbody>
@@ -101,6 +117,8 @@ const Admin = () => {
           )}
         </div>
       </Container>
+      <EditProduct show={showProduct} setShow={setShowProduct} product={product} />
+      <EditUser show={showUser} setShow={setShowUser} user={user} />
     </>
   );
 };

@@ -8,42 +8,12 @@ import EditProduct from "./EditProduct";
 
 const ProductDetail = ({ product, add, auth }) => {
   const [contador, setContador] = useState(1);
-  const [editName, setEditName] = useState(product.title);
-  const [editPrice, setEditPrice] = useState(product.price);
-  const [editDescription, setEditDescription] = useState(product.description);
+
   const handleShow = () => setShow(true);
-  const [submitOk, setSubmitOk] = useState(null);
+
   const [deleteProd, setDeleteProd] = useState(null);
   const [show, setShow] = useState(false);
   const navegate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitOk(null);
-    fetch("https://node-3i.vercel.app/products/" + product._id, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        category: product.category,
-        description: editDescription,
-        image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-        price: editPrice,
-        title: editName,
-      }),
-    })
-      .then((res) => res.json())
-      .then(() => setSubmitOk(true))
-      .catch(() => setSubmitOk(false));
-  };
-  useEffect(() => {
-    if (submitOk) {
-      toast("Modificado!");
-      setShow(false);
-      navegate("/");
-    } else if (submitOk === false) {
-      toast("Algo ha salido mal ...");
-    }
-  }, [submitOk]);
 
   const deleteProduct = (e) => {
     setDeleteProd(null);
@@ -139,18 +109,7 @@ const ProductDetail = ({ product, add, auth }) => {
           </div>
         ))}
       </Container>
-      <EditProduct
-        editName={editName}
-        product={product}
-        show={show}
-        setShow={setShow}
-        handleSubmit={handleSubmit}
-        setEditName={setEditName}
-        editDescription={editDescription}
-        setEditDescription={setEditDescription}
-        editPrice={editPrice}
-        setEditPrice={setEditPrice}
-      />
+      <EditProduct product={product} show={show} setShow={setShow} />
       {/* <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Editar producto</Modal.Title>
