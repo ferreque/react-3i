@@ -4,12 +4,18 @@ import { Container } from "react-bootstrap";
 import Loader from "./Loader";
 import EditProduct from "./EditProduct";
 import EditUser from "./EditUser";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const Admin = () => {
+  const navegate = useNavigate();
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({});
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingProd, setIsLoadingProd] = useState(true);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const [deleteProd, setDeleteProd] = useState(null);
+  const [deleteUser, setDeleteUser] = useState(null);
   const handleShowProd = (product) => {
     setProduct(product);
     setShowProduct(true);
@@ -25,15 +31,67 @@ const Admin = () => {
     fetch("https://node-3i.vercel.app/products/all")
       .then((res) => res.json())
       .then((json) => setProducts(json.allProducts))
-      .finally(() => setIsLoading(false));
+      .finally(() => setIsLoadingProd(false));
   }, []);
 
   useEffect(() => {
     fetch("https://node-3i.vercel.app/users/all")
       .then((res) => res.json())
       .then((json) => setUsers(json.allUsers))
-      .finally(() => setIsLoading(false));
+      .finally(() => setIsLoadingUser(false));
   }, []);
+
+  const deleteProduct = (product) => {
+    setDeleteProd(null);
+    let validar = window.confirm(
+      `Esta seguro que desea eliminar el producto ${product.name}?`
+    );
+    if (validar) {
+      fetch("https://node-3i.vercel.app/products/" + product._id, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((json) => setDeleteProd(true))
+        .catch((error) => setDeleteProd(false));
+    }
+  };
+  useEffect(() => {
+    if (deleteProd) {
+      toast("Producto eliminado!");
+      navegate("/");
+    } else if (deleteProd === false) {
+      toast("Algo ha salido mal ...");
+    }
+  }, [deleteProd]);
+
+  const deleteUsers = (user) => {
+    setDeleteUser(null);
+    let validar = window.confirm(
+      `Esta seguro que desea eliminar el usuario ${user.name}?`
+    );
+    if (validar) {
+      fetch("https://node-3i.vercel.app/users/" + user._id, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((json) => setDeleteUser(true))
+        .catch((error) => setDeleteUser(false));
+    }
+  };
+  useEffect(() => {
+    if (deleteUser) {
+      toast("Usuario eliminado!");
+      navegate("/");
+    } else if (deleteUser === false) {
+      toast("Algo ha salido mal ...");
+    }
+  }, [deleteUser]);
+
+  const AddProduct = () => {
+    console.log("add product");
+  };
 
   return (
     <>
@@ -41,9 +99,9 @@ const Admin = () => {
       <Container>
         <div className="d-flex justify-content-around">
           <h1 className="d-inline">PRODUCTOS</h1>
-          <button>➕</button>
+          <button onClick={() => AddProduct()}>➕</button>
         </div>
-        {isLoading ? (
+        {isLoadingProd ? (
           <Loader />
         ) : (
           <Table striped bordered hover variant="dark">
@@ -67,7 +125,7 @@ const Admin = () => {
                     <button onClick={(e) => handleShowProd(product)}>📝</button>
                   </td>
                   <td>
-                    <button>❌</button>
+                    <button onClick={(e) => deleteProduct(product)}>❌</button>
                   </td>
                 </tr>
               ))}
@@ -82,7 +140,7 @@ const Admin = () => {
             <h1>USUARIOS</h1>
             <button>➕</button>
           </div>
-          {isLoading ? (
+          {isLoadingUser ? (
             <Loader />
           ) : (
             <Table striped bordered hover variant="dark">
@@ -109,7 +167,14 @@ const Admin = () => {
                         <button onClick={(e) => handleShowUsers(user)}>📝</button>
                       )}
                     </td>
-                    <td> {user.mail === "admin@admin.com" ? "" : <button>❌</button>}</td>
+                    <td>
+                      {" "}
+                      {user.mail === "admin@admin.com" ? (
+                        ""
+                      ) : (
+                        <button onClick={(e) => deleteUsers(user)}>❌</button>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>

@@ -17,13 +17,18 @@ const ProductDetail = ({ product, add, auth }) => {
 
   const deleteProduct = (e) => {
     setDeleteProd(null);
-    fetch("https://node-3i.vercel.app/products/" + product._id, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((json) => setDeleteProd(true))
-      .catch((error) => setDeleteProd(false));
+    let validar = window.confirm(
+      `Esta seguro que desea eliminar el producto ${product.name}?`
+    );
+    if (validar) {
+      fetch("https://node-3i.vercel.app/products/" + product._id, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((json) => setDeleteProd(true))
+        .catch((error) => setDeleteProd(false));
+    }
   };
   useEffect(() => {
     if (deleteProd) {
