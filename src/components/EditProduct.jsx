@@ -8,11 +8,13 @@ function EditProduct({ show, setShow, product }) {
   const [editName, setEditName] = useState(product.title);
   const [editPrice, setEditPrice] = useState(product.price);
   const [editDescription, setEditDescription] = useState(product.description);
+  const [editImage, setEditImage] = useState(product.image);
   const [submitOk, setSubmitOk] = useState(null);
   useEffect(() => {
     setEditName(product.title);
     setEditPrice(product.price);
     setEditDescription(product.description);
+    setEditImage(product.image);
   }, [show]);
 
   const handleClose = () => setShow(false);
@@ -26,6 +28,7 @@ function EditProduct({ show, setShow, product }) {
         description: editDescription,
         price: editPrice,
         title: editName,
+        image: editImage,
       }),
     })
       .then((res) => res.json())
@@ -74,6 +77,16 @@ function EditProduct({ show, setShow, product }) {
               placeholder="Product Description"
               type="text"
               onChange={(e) => setEditDescription(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formDescription">
+            <Form.Label>Imagen</Form.Label>
+            <Form.Control
+              as="textarea"
+              value={editImage}
+              placeholder="Product Description"
+              type="text"
+              onChange={(e) => setEditImage(e.target.value)}
             />
           </Form.Group>
 
